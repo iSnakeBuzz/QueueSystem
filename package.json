@@ -1,0 +1,28 @@
+{
+  "name": "hycraft",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "captainjs": "^1.0.4",
+    "cookie-parser": "^1.4.5",
+    "debug": "~2.6.9",
+    "dotenv": "^9.0.1",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "gamemaker": "^1.0.2",
+    "hashmap": "^2.4.0",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "redis": "^3.1.2",
+    "ws": "^7.4.6"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "loadtest": "^5.1.2",
+    "nodemon": "^2.0.7"
+  }
+}

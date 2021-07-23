@@ -1,0 +1,16 @@
+{
+  "solo-queues": [
+    {
+      "name": "BuildUHC",
+      "minAmount": 2,
+      "maxAmount": 2,
+      "ranked": false
+    },
+    {
+      "name": "BuildUHC-Party",
+      "minAmount": 2,
+      "maxAmount": 48,
+      "ranked": true
+    }
+  ]
+}
