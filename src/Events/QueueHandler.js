@@ -2,8 +2,9 @@ const Matchmaker = require('gamemaker');
 
 class QueueHandler {
 
-    constructor(gameType, options, pubsub) {
+    constructor(gameType, mapFinders, options, pubsub) {
         this.gameType = gameType;
+        this.mapFinders = mapFinders;
         this.options = options;
         this.matcher = new Matchmaker(startMatch, getPlayerID, {
             checkInterval: 1000,
@@ -15,7 +16,7 @@ class QueueHandler {
 
         function startMatch(players) {
             console.log('Sending players:', players.map(e => e.player));
-            pubsub.emit('onQueueMatched', gameType, players);
+            pubsub.emit('onQueueMatched', gameType, mapFinders, players);
         }
 
         function getPlayerID(player) {

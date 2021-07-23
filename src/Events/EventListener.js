@@ -2,6 +2,8 @@ const WebSocket = require('ws');
 const EventEmitter = require('events').EventEmitter;
 const HashMap = require('hashmap');
 const QueueHandler = require('./QueueHandler');
+const axios = require('axios');
+
 const port = 3102;
 
 const config = require('../../config.json');
@@ -15,7 +17,7 @@ config['solo-queues'].map((queueConfig) => {
     let minMatchSize = queueConfig.minAmount;
     let maxMatchSize = queueConfig.maxAmount;
 
-    let queue = new QueueHandler(name, {
+    let queue = new QueueHandler(name, queueConfig.mapFinders, {
         minMatchSize,
         maxMatchSize,
         ranked: queueConfig.ranked
@@ -56,9 +58,17 @@ eventListener.on('onQueueRemove', (gameType, player) => {
     }
 });
 
-eventListener.on('onQueueMatched', (gameType, players) => {
+eventListener.on('onQueueMatched', async (gameType, finder, players) => {
     console.log('[Snake Queue System]', gameType, 'matched with', players);
-    broadcast('onQueueMatched', { gameType, players });
+
+    axios.get(`${process.env.GAMES_API_URL}${finder}`)
+        .then(function (res) {
+            let games = res.data;
+            broadcast('onQueueMatched', { gameType, players, game: games[0] });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 });
 // Broadcasting to all clients :D
 async function broadcast(channel, data) {
