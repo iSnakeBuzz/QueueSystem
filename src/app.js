@@ -10,6 +10,7 @@ const index = require('./routes/index');
 
 // Games Routes
 const queuePut = require('./routes/queue/queuePut');
+const queueRemove = require('./routes/queue/queueRemove');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 if (!process.env.DISABLE_GAMEDATA) {
     app.use('/', index);
     app.use('/queue/add', queuePut);
+    app.use('/queue/remove', queueRemove);
 }
 
 // catch 404 and forward to error handler
