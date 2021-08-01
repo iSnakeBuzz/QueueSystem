@@ -64,7 +64,9 @@ eventListener.on('onQueueMatched', async (gameType, finder, players) => {
     axios.get(`${process.env.GAMES_API_URL}${finder}`)
         .then(function (res) {
             let games = res.data;
-            games.sort(sortGames);
+
+            // Sort only when the length is greater than 1 :)
+            if (games.length > 1) games.sort(sortGames);
 
             console.log('[Snake Queue System]', gameType, 'matched with', players, 'Arena:', games[0]);
             broadcast('onQueueMatched', { gameType, players, game: games[0] });
