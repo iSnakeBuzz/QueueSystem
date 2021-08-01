@@ -2,14 +2,14 @@
   "solo-queues": [
     {
       "name": "BuildUHC",
-      "mapFinders": "sky?players=9&status=waiting&status=ingame",
+      "mapFinders": "sky?players=9&status=waiting",
       "minAmount": 2,
       "maxAmount": 2,
       "ranked": false
     },
     {
       "name": "BuildUHC-Party",
-	  "mapFinders": "builduhc?players=9&status=waiting&status=ingame",
+	  "mapFinders": "builduhc?players=9&status=waiting",
 	  "minAmount": 2,
       "maxAmount": 48,
       "ranked": true
