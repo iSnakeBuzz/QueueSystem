@@ -59,13 +59,14 @@ eventListener.on('onQueueRemove', (gameType, player) => {
 });
 
 eventListener.on('onQueueMatched', async (gameType, finder, players) => {
-    console.log('[Snake Queue System]', gameType, 'matched with', players);
+    /* console.log('[Snake Queue System]', gameType, 'matched with', players); */
 
     axios.get(`${process.env.GAMES_API_URL}${finder}`)
         .then(function (res) {
             let games = res.data;
             games.sort(sortGames);
 
+            console.log('[Snake Queue System]', gameType, 'matched with', players, 'Arena:', games[0]);
             broadcast('onQueueMatched', { gameType, players, game: games[0] });
         })
         .catch(function (error) {
@@ -84,7 +85,7 @@ async function broadcast(channel, data) {
 
 // Sort games
 function sortGames(a, b) {
-    return b.players - a.players;
+    return a.players - b.players;
 }
 
 exports.pubsub = eventListener;
