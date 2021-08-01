@@ -64,12 +64,15 @@ eventListener.on('onQueueMatched', async (gameType, finder, players) => {
     axios.get(`${process.env.GAMES_API_URL}${finder}`)
         .then(function (res) {
             let games = res.data;
+            games.sort(sortGames);
+
             broadcast('onQueueMatched', { gameType, players, game: games[0] });
         })
         .catch(function (error) {
             console.log(error);
         });
 });
+
 // Broadcasting to all clients :D
 async function broadcast(channel, data) {
     wss.clients.forEach(function each(client) {
@@ -77,6 +80,11 @@ async function broadcast(channel, data) {
             client.send(JSON.stringify({ type: channel, data }));
         }
     });
+}
+
+// Sort games
+function sortGames(a, b) {
+    return b.players - a.players;
 }
 
 exports.pubsub = eventListener;
