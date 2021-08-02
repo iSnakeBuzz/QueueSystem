@@ -63,6 +63,7 @@ eventListener.on('onQueueMatched', async (gameType, finder, players) => {
 
     axios.get(`${process.env.GAMES_API_URL}${finder}`)
         .then(function (res) {
+            console.log('Receiving:', res);
             let games = res.data;
 
             // Sort only when the length is greater than 1 :)
