@@ -66,6 +66,10 @@ eventListener.on('onQueueMatched', async (gameType, finder, players) => {
             console.log('Receiving:', res.data);
             let games = res.data;
 
+            if (!games || games.length <= 0) {
+                return broadcast('onQueueGamesOut', { gameType, players, message: 'No games availables.' });
+            }
+
             // Sort only when the length is greater than 1 :)
             if (games.length > 1) games.sort(sortGames);
 
