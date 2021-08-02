@@ -15,7 +15,6 @@ class QueueHandler {
         });
 
         function startMatch(players) {
-            console.log('Sending players:', players.map(e => e.player));
             pubsub.emit('onQueueMatched', gameType, mapFinders, players);
         }
 
